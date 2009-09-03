@@ -4,14 +4,15 @@
 
 while read line
 do
-  if ping -c 1 -w 1 -q ${line#[^@]*@} </dev/null &>/dev/null; then
+  if [[ "${line#[^@]*@}" -ne "$HOSTNAME" ]] && ping -c 1 -w 1 -q ${line#[^@]*@} </dev/null &>/dev/null; then
     #read in assets file from remote computer
     scp $line":Documents/slx/assets" .assets
     while read item
     do
       src=$HOME"/"$loc$item
       dst=$line":"$loc$item
-      rsync -ru $src $dst
+      #rsync -ru $src $dst
+      echo $line
     done < .assets
 
     rm .assets
