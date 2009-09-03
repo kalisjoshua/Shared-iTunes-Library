@@ -1,0 +1,19 @@
+#pull remote changes to overwrite local using [slx]
+
+. ./location
+
+if [ -z $1 ]
+then
+  remote=kalisjos@sandbox
+else
+  remote=$1
+fi
+
+#read in assets for local computer 
+while read item
+do
+  dst=$HOME"/"$loc$item
+  src=$remote":"$loc$item
+  #rsync -ru $src $dst
+  echo $src
+done < assets
