@@ -18,14 +18,14 @@ do
 
     while read item
     do
+      # if the local machine is maintaining the asset then it is allowed to be synced
       if [[ ${item%%[^#]*} != "#" ]]
       then
         src=$item
         dst=$node":"$item
-        #rsync -ru $src $dst
         if grep -q ^$item$ .assets
         then
-          echo "rsync -ru $src $dst"
+          echo "scp -r $src $dst"
         fi
       fi
     done < assets

@@ -25,12 +25,12 @@ then
   #read in assets for local computer 
   while read item
   do
+    # if the local machine is maintaining the asset then it is allowed to be synced
     if [[ ${item%%[^#]*} != "#" ]]
     then
       dst=$item
       src=$arg":"$item
-      #rsync -ru $src $dst
-      echo "rsync -ru $src $dst"
+      echo "scp -r $src $dst"
     fi
   done < assets
 fi
