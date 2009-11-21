@@ -30,7 +30,7 @@ then
     then
       dst=$item
       src=$arg":"$item
-      echo "scp -r $src $dst"
+      echo "scp -pr $src $dst"
     fi
   done < assets
 fi
