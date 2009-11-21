@@ -1,3 +1,15 @@
 Shared iTunes Library
 
+assets
 
+A list of all the files and directories under ~/Music/iTunes; items that should not 
+be synced to the local machine or pushed out to other machines need to be commented.
+
+
+fetch
+init
+machines
+push
+readme
+samples
+test
