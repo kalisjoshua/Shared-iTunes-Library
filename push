@@ -1,20 +1,26 @@
-#push local changes to remote host using [slx]
+#!/bin/bash
 
-. ./location
+# Shared-iTunes-Library
+# push changes to remote 
 
-while read line
+while read node
 do
-  if [[ "${line#[^@]*@}" -ne "$HOSTNAME" ]] && ping -c 1 -w 1 -q ${line#[^@]*@} </dev/null &>/dev/null; then
+  if [ "${node#[^@]*@}" != "$HOSTNAME" ] && ping -c 1 -o -q ${node#[^@]*@} </dev/null &>/dev/null
+  then
+    echo "Connection established"
+
     #read in assets file from remote computer
-    scp $line":Documents/slx/assets" .assets
+    scp $node":Music/Shared-iTunes-Library/assets" .assets
     while read item
     do
-      src=$HOME"/"$loc$item
-      dst=$line":"$loc$item
+      src=$item
+      dst=$node":"$item
       #rsync -ru $src $dst
-      echo $line
+      echo "rsync -ru $src $dst"
     done < .assets
 
-    rm .assets
+    rm -f .assets
   fi
 done < machines
+
+echo "Finished Shared-iTunes-Library.push Successfully"

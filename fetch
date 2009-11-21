@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Shared-iTunes-Library
+# pull changes from remote to overwrite local 
+
+arg=$1
+
+if [ $1 == ${1%@[^@]*} ]
+then
+  arg=$USER"@"$1
+  echo "You did not give a username for the connection"
+  echo "Attempting to use: "$arg
+fi
+
+if [ -z $1 ]
+then
+  echo "You must specify a machine to pull from"
+  exit 1
+fi
+
+if ping -c 1 -o -q $1 </dev/null &>/dev/null
+then
+  echo "Connection established"
+
+  #read in assets for local computer 
+  while read item
+  do
+    dst=$item
+    src=$arg":"$item
+    #rsync -ru $src $dst
+    echo "rsync -ru $src $dst"
+  done < assets
+fi
+
+echo "Finished Shared-iTunes-Library.fetch Successfully"
