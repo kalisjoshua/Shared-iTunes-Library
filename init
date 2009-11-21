@@ -14,7 +14,7 @@ fi
 
 if [ -z $1 ]
 then
-  echo "You must specify a machine to pull from"
+  echo "You must specify a machine to send files to"
   exit 1
 fi
 
