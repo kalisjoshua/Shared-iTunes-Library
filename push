@@ -25,7 +25,7 @@ do
         dst=$node":"$item
         if grep -q ^$item$ .assets
         then
-          echo "scp -pr $src $dst"
+          scp -pr $src $dst
         fi
       fi
     done < assets
