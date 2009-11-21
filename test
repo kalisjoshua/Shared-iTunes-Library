@@ -1,0 +1,6 @@
+#!/bin/bash
+
+count=0
+echo $count
+count=$((count+1))
+echo $count

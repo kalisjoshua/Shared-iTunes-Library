@@ -3,20 +3,28 @@
 # Shared-iTunes-Library
 # push changes to remote 
 
+count=0
+
 while read node
 do
-  if [ "${node#[^@]*@}" != "$HOSTNAME" ] && ping -c 1 -o -q ${node#[^@]*@} </dev/null &>/dev/null
+  if [ "${node#[^@]*@}" != "$HOSTNAME" ] && ping -c 1 -o -q -W 1 ${node#[^@]*@} </dev/null &>/dev/null
   then
     echo "Connection established"
+    count=$((count+1))
 
     #read in assets file from remote computer
+    echo "Attempting to read assets file from remote computer: "$node
     scp $node":Music/Shared-iTunes-Library/assets" .assets
+
     while read item
     do
       src=$item
       dst=$node":"$item
       #rsync -ru $src $dst
-      echo "rsync -ru $src $dst"
+      if grep -q $item assets
+      then
+        echo "rsync -ru $src $dst"
+      fi
     done < .assets
 
     rm -f .assets
@@ -24,3 +32,4 @@ do
 done < machines
 
 echo "Finished Shared-iTunes-Library.push Successfully"
+echo "Updated "$count" machines"

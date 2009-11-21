@@ -1,0 +1,4 @@
+scp ~/Music/iTunes/a boat@Thalia.local:Music/iTunes/a
+scp ~/Music/iTunes/b boat@Thalia.local:Music/iTunes/b
+scp ~/Music/iTunes/c boat@Thalia.local:Music/iTunes/c
+scp ~/Music/iTunes/d boat@Thalia.local:Music/iTunes/d

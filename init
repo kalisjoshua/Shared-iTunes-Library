@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Shared-iTunes-Library
+# initialize remote machine with the files from the local machine
+
+arg=$1
+
+if [ $1 == ${1%@[^@]*} ]
+then
+  arg=$USER"@"$1
+  echo "You did not give a username for the connection"
+  echo "Attempting to use: "$arg
+fi
+
+if [ -z $1 ]
+then
+  echo "You must specify a machine to pull from"
+  exit 1
+fi
+
+scp -pr ~/Music/Shared-iTunes-Library/ $arg:Music/Shared-iTunes-Library
